@@ -1,8 +1,8 @@
 **Read in English: [angielski](README.en.md)**
 
-Kurs GoIT - Moduł 'React' - HomeWork #02 - komponent "Phonebook"
+Kurs GoIT - Moduł 'React' - HomeWork #02 - część 2 "Image Finder"
 
-Link: https://macbeebas.github.io/goit-react-hw-02-phonebook/
+Link: https://macbeebas.github.io/goit-react-hw-03-image-finder/
 
 Zbudowane przy pomocy:
 
