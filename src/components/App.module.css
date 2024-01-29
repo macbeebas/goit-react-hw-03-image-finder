@@ -1,8 +1,19 @@
-* {
+.App {
     /* display: grid; */
     /* grid-template-columns: 1fr; */
     /* grid-gap: 16px; */
     /* padding-bottom: 24px; */
-
+  
     font-size: 1em;
-}
+  }
+  
+  .mainHeader {
+    /* height: 100vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    color: #010101;
+    /* border: 1px solid red; */
+  }
+  
