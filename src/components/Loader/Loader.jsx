@@ -1,4 +1,4 @@
-import React, { Componenet } from 'react';
+import React, { Component } from 'react';
 import css from './Loader.module.css';
 import PropTypes from 'prop-types';
 
