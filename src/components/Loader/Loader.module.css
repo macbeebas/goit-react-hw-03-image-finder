@@ -1,0 +1,9 @@
+* {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 2em; */
+    /* color: #010101; */
+    border: 1px solid blue;
+}
