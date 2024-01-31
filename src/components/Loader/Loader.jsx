@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-// import css from "./Loader.module.css";
+import React, { Component } from 'react';
+// import css from './Loader.module.css';
 // import PropTypes from 'prop-types';
 
-import { FallingLines } from "react-loader-spinner";
+import { FallingLines } from 'react-loader-spinner';
 
 export class Loader extends Component {
   render() {
