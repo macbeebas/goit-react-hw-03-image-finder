@@ -7,7 +7,7 @@ export class ImageGalleryItem extends Component {
     return (
       <li className={css.galleryItem}>
         <img
-          className={css.galleryItemImg}
+          className={css.galleryImg}
           src="https://via.placeholder.com/320x240"
           alt="Placeholder 320x240"
         />

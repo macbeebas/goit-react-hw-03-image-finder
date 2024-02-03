@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-// import css from './Loader.module.css';
-// import PropTypes from 'prop-types';
+import React from 'react';
+import { ThreeDots } from 'react-loader-spinner';
+import css from './Loader.module.css';
 
-import { FallingLines } from 'react-loader-spinner';
-
-export class Loader extends Component {
-  render() {
-    return (
-      <FallingLines
-        color="#4fa94d"
-        width="100"
-        visible={true}
-        ariaLabel="falling-circles-loading"
-      />
-    );
-  }
-}
-
-// Loader.propTypes = {
-//   isLoader: PropTypes.bool,
-// };
+export const Loader = () => {
+  return (
+    <div className={css.loaderWrapper}>
+      <div className={css.loaderSpot}>
+        <ThreeDots
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    </div>
+  );
+};

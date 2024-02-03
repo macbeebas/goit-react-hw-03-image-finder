@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-// import { ImageGallery } from "./ImageGallery/ImageGallery.jsx";
-// import { Modal } from './Modal/Modal.jsx';
+import { ImageGallery } from './ImageGallery/ImageGallery.jsx';
+import { Modal } from './Modal/Modal.jsx';
 import { Searchbar } from './Searchbar/Searchbar.jsx';
 import { Loader } from './Loader/Loader.jsx';
-// import { ButtonLoadMore } from "./ButtonLoadMore/ButtonLoadMore.jsx";
-
-// import { FallingLines } from "react-loader-spinner";
-
+import { ButtonLoadMore } from './ButtonLoadMore/ButtonLoadMore.jsx';
 import css from './App.module.css';
 
 const pixabayMockup = {
@@ -366,28 +363,8 @@ const pixabayMockup = {
 const picturesMockup = pixabayMockup.hits;
 console.log('picturesMockup:', picturesMockup);
 
-// export class App extends Component {
-// state = {
-// pictures: [],
-// actualPage: 1,
-// maxPages: 1,
-// searchQuery: '',
-// shownModal: false,
-// isLoader: false,
-// isBtnLoadMore: false,
-// };
-//
-// render () {
-//  const { images, showModal, total, isImagesLoading, page, totalPage, largeImageURL, openImgTags } = this.state;
-// return (
-// <>
-//
-// </>
-// )
-// }
-
 export class App extends Component {
-  // deklaracja 'state'
+  // 'state' declaration
   state = {
     pictures: [],
     actualPage: 1,
@@ -399,7 +376,7 @@ export class App extends Component {
   };
 
   render() {
-    // Destrukturyzacja zmiennych 'state'
+    // destructuring 'state' variables
     const {
       pictures,
       actualPage,
@@ -411,26 +388,13 @@ export class App extends Component {
     } = this.state;
 
     return (
-      <>
+      <div className={css.App}>
         <Searchbar />
-        <h1 className={css.mainHeader}>React homework template</h1>
-        <p
-          style={{
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            // fontSize: '2em',
-            // color: '#010101',
-            border: '1px solid blue',
-            position: 'sticky',
-            zIndex: 5000,
-          }}
-        >
-          <Loader />
-          {/* <Modal /> */}
-        </p>
-      </>
+        <ImageGallery />
+        <ButtonLoadMore />
+        <Loader />
+        <Modal />
+      </div>
     );
   }
 }
