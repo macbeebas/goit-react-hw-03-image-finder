@@ -378,7 +378,7 @@ export class App extends Component {
   render() {
     // destructuring 'state' variables
     const {
-      pictures,
+      pictures = { picturesMockup },
       actualPage,
       maxPages,
       searchQuery,
@@ -387,13 +387,23 @@ export class App extends Component {
       isBtnLoadMore,
     } = this.state;
 
+    console.log(
+      pictures,
+      actualPage,
+      maxPages,
+      searchQuery,
+      isModal,
+      isLoader,
+      isBtnLoadMore
+    );
+
     return (
       <div className={css.App}>
-        <Searchbar />
-        <ImageGallery />
-        <ButtonLoadMore />
-        <Loader />
-        <Modal />
+        <Searchbar onSubmit={this.handleFormSubmit} />
+        {/* <ImageGallery /> */}
+        {/* <ButtonLoadMore /> */}
+        {/* <Loader /> */}
+        {/* <Modal /> */}
       </div>
     );
   }
