@@ -400,10 +400,10 @@ export class App extends Component {
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {/* <ImageGallery /> */}
-        {/* <ButtonLoadMore /> */}
-        {/* <Loader /> */}
-        {/* <Modal /> */}
+        <ImageGallery />
+        <ButtonLoadMore />
+        <Loader />
+        <Modal />
       </div>
     );
   }
