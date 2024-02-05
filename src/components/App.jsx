@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { ImageGallery } from './ImageGallery/ImageGallery.jsx';
 import { Modal } from './Modal/Modal.jsx';
 import { Searchbar } from './Searchbar/Searchbar.jsx';
@@ -361,7 +362,7 @@ const pixabayMockup = {
   ],
 };
 const picturesMockup = pixabayMockup.hits;
-console.log('picturesMockup:', picturesMockup);
+// console.log('picturesMockup:', picturesMockup);
 
 export class App extends Component {
   // 'state' declaration
@@ -373,6 +374,17 @@ export class App extends Component {
     isModal: false,
     isLoader: false,
     isBtnLoadMore: false,
+  };
+
+  handleSubmitForm = query => {
+    window.scrollTo(0, 0);
+    query.preventDefault();
+    console.log(query);
+    if (query.trim() === '') {
+      Notify.warning("Search request shouldn't be empty");
+      return;
+    }
+    this.setState({ searchQuery: query, page: 1, images: [] });
   };
 
   render() {
@@ -399,11 +411,11 @@ export class App extends Component {
 
     return (
       <div className={css.App}>
-        <Searchbar onSubmit={this.handleFormSubmit} />
-        <ImageGallery />
-        <ButtonLoadMore />
-        <Loader />
-        <Modal />
+        <Searchbar onSubmit={this.handleSubmitForm} />
+        {/* <ImageGallery /> */}
+        {/* <ButtonLoadMore /> */}
+        {/* <Loader /> */}
+        {/* <Modal /> */}
       </div>
     );
   }
