@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import css from './Searchbar.module.css';
 
 export class Searchbar extends Component {
   state = {
-    searchQuery: '',
+    query: '',
+  };
+
+  handleInputChange = q => {
+    this.setState({ query: q.currentTarget.value.toLowerCase() });
+  };
+
+  handleSubmitForm = s => {
+    s.preventDefault();
+    this.props.onSubmit(this.state.query);
+
+    this.setState({ query: '' });
   };
 
   render() {
     return (
       <header className={css.Searchbar}>
-        <form className={css.SearchForm}>
+        <form className={css.SearchForm} onSubmit={this.handleSubmitForm}>
           <button type="submit" className={css.SearchFormButton}>
             <svg
               focusable="false"
@@ -27,9 +38,15 @@ export class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
+            value={this.state.query}
+            onChange={this.handleInputChange}
           />
         </form>
       </header>
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

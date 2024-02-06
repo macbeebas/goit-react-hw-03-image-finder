@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// import axios from 'axios';
 import { ImageGallery } from './ImageGallery/ImageGallery.jsx';
 import { Modal } from './Modal/Modal.jsx';
 import { Searchbar } from './Searchbar/Searchbar.jsx';
 import { Loader } from './Loader/Loader.jsx';
 import { ButtonLoadMore } from './ButtonLoadMore/ButtonLoadMore.jsx';
+import { GetFromApi } from './GetFromApi/GetFromApi.jsx';
+
 import css from './App.module.css';
 
 const pixabayMockup = {
@@ -361,15 +364,20 @@ const pixabayMockup = {
     },
   ],
 };
+
 const picturesMockup = pixabayMockup.hits;
 // console.log('picturesMockup:', picturesMockup);
+
+Notify.init({
+  position: 'center-center',
+});
 
 export class App extends Component {
   // 'state' declaration
   state = {
     pictures: [],
     actualPage: 1,
-    maxPages: 1,
+    totalPages: 1,
     searchQuery: '',
     isModal: false,
     isLoader: false,
@@ -378,21 +386,55 @@ export class App extends Component {
 
   handleSubmitForm = query => {
     window.scrollTo(0, 0);
-    query.preventDefault();
-    console.log(query);
     if (query.trim() === '') {
       Notify.warning("Search request shouldn't be empty");
       return;
     }
-    this.setState({ searchQuery: query, page: 1, images: [] });
+    this.setState({ searchQuery: query, page: 1, pictures: [] });
   };
+
+  async componentDidUpdate(_, prevState) {
+    console.log('prevState:', prevState);
+    if (
+      prevState.searchQuery !== this.state.searchQuery ||
+      prevState.actualPage !== this.state.actualPage
+    ) {
+      this.setState({ isLoader: true });
+      const response = await GetFromApi(
+        this.state.searchQuery,
+        this.state.page
+      );
+      console.log('response is:', response);
+      if (response) {
+        this.setState(prevState => ({
+          pictures: [...prevState.pictures, ...response.pictures],
+          totalHits: response.totalHits,
+          isLoader: false,
+          totalPages: response.totalPages,
+        }));
+
+        if (response.pictures.length === 0) Notify.warning('No pictures found');
+
+        if (response.pictures.length > 0 && this.state.page === 1)
+          Notify.success(
+            `Found ${response.totalHits} pictures ${
+              response.totalHits === 500 ? 'or more' : ''
+            }`
+          );
+
+        if (this.state.page === response.totalPage && response.totalPage > 1)
+          Notify.info(`This is the last page`);
+      }
+      console.log('state is:', this.state);
+    }
+  }
 
   render() {
     // destructuring 'state' variables
     const {
-      pictures = { picturesMockup },
+      pictures,
       actualPage,
-      maxPages,
+      totalPages,
       searchQuery,
       isModal,
       isLoader,
@@ -402,7 +444,7 @@ export class App extends Component {
     console.log(
       pictures,
       actualPage,
-      maxPages,
+      totalPages,
       searchQuery,
       isModal,
       isLoader,
@@ -414,7 +456,7 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSubmitForm} />
         {/* <ImageGallery /> */}
         {/* <ButtonLoadMore /> */}
-        {/* <Loader /> */}
+        {isLoader && <Loader />}
         {/* <Modal /> */}
       </div>
     );
