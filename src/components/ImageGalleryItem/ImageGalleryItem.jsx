@@ -1,17 +1,31 @@
-import React, { Component } from 'react';
-// import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 import css from './ImageGalleryItem.module.css';
 
-export class ImageGalleryItem extends Component {
-  render() {
-    return (
-      <li className={css.galleryItem}>
-        <img
-          className={css.galleryImg}
-          src="https://via.placeholder.com/320x240"
-          alt="Placeholder 320x240"
-        />
-      </li>
-    );
-  }
-}
+export const ImageGalleryItem = ({
+  id,
+  webformatURL,
+  largeImageURL,
+  tags,
+  onClick,
+}) => {
+  return (
+    <li className={css.galleryItem} key={id} onClick={onClick}>
+      <img
+        className={css.galleryImg}
+        src={webformatURL}
+        alt={tags}
+        data-modal={largeImageURL}
+        data-tags={tags}
+      />
+    </li>
+  );
+};
+
+ImageGalleryItem.propTypes = {
+  id: PropTypes.number.isRequired,
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+};
