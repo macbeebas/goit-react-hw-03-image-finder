@@ -125,9 +125,15 @@ export class App extends Component {
         {totalHits > 0 && (
           <ImageGallery pictures={pictures} onClick={this.handleModalPict} />
         )}
-        {/* <ButtonLoadMore /> */}
         {isLoader && <Loader />}
-        {/* {isModal && <Modal />} */}
+        <ButtonLoadMore />
+        {isModal && (
+          <Modal
+            onClose={this.toggleModalPict}
+            bigPictureUrl={bigPictureUrl}
+            bigPictureTags={bigPictureTags}
+          />
+        )}
         {console.log(
           'return "state":',
           { actualPage },

@@ -8,10 +8,46 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1200;
+    z-index: 2000;
 }
 
 .modalPicture {
     max-width: calc(100vw - 48px);
     max-height: calc(100vh - 24px);
+    position: relative;
+    /* object-fit: cover; */
+}
+
+.showPicture {
+    max-width: calc(100vw - 48px);
+    max-height: calc(100vh - 24px);
+    object-fit: cover;
+}
+
+.btnClose {
+    position: absolute;
+    /* position: relative; */
+    /* position: absolute; */
+    /* position: fixed; */
+    /* position: sticky; */
+    top: 20px;
+    right: 20px;
+    padding: 4px;
+    height: calc(100vh * 0.04);
+    width: calc(100vh * 0.04);
+    font-size: large;
+    color: white;
+    background-color: rgba(100, 100, 100, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+}
+
+.btnClose:hover {
+    color: #ffa500;
+    box-shadow: 0 0 5px 5px rgb(255, 165, 0, 0.3);
+    /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); */
+    text-shadow: 1px 1px 1px rgb(0, 0, 0, 0.5), 1px -1px 1px rgb(0, 0, 0, 0.5), -1px 1px 1px rgb(0, 0, 0, 0.5), -1px -1px 1px rgb(0, 0, 0, 0.5);
 }
