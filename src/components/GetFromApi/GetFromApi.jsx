@@ -10,13 +10,15 @@ const PARAMS = {
   per_page: 12,
 };
 
-export async function GetFromApi(query, page) {
-  const url = `${URL}?key=${KEY}&q=${query}&page=${page}`;
-  console.log('url:', url);
+export async function GetFromApi(searchQuery, actualPage) {
+  const url = `${URL}?key=${KEY}&q=${searchQuery}&page=${actualPage}`;
+  console.log('in GetFromApi - url:', url);
+  console.log('in GetFromApi - searchQuery:', searchQuery);
+  console.log('in GetFromApi - actualPage:', actualPage);
   try {
     const response = await axios.get(`${url}`, { params: PARAMS });
-    const totalHits = response.data.totalHits;
     const pictures = response.data.hits;
+    const totalHits = response.data.totalHits;
     const totalPages = Math.ceil(response.data.totalHits / PARAMS.per_page);
     return { pictures, totalHits, totalPages };
   } catch (error) {

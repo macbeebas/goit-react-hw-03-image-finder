@@ -34,7 +34,7 @@ export class App extends Component {
       Notify.warning("Search request shouldn't be empty");
       return;
     }
-    this.setState({ searchQuery: query, page: 1, pictures: [] });
+    this.setState({ searchQuery: query, actualPage: 1, pictures: [] });
   };
 
   async componentDidUpdate(_, prevState) {
@@ -46,9 +46,9 @@ export class App extends Component {
       this.setState({ isLoader: true });
       const response = await GetFromApi(
         this.state.searchQuery,
-        this.state.page
+        this.state.actualPage
       );
-      console.log('response is:', response);
+      console.log('in App - "response" is:', response);
       if (response) {
         this.setState(prevState => ({
           pictures: [...prevState.pictures, ...response.pictures],
@@ -59,14 +59,19 @@ export class App extends Component {
 
         if (response.pictures.length === 0) Notify.warning('No pictures found');
 
-        if (response.pictures.length > 0 && this.state.page === 1)
+        if (response.pictures.length > 0 && this.state.actualPage === 1)
           Notify.success(
             `Found ${response.totalHits} pictures ${
               response.totalHits === 500 ? 'or more' : ''
             }`
           );
-
-        if (this.state.page === response.totalPage && response.totalPage > 1)
+        console.log(
+          `Last page? this.state.actualPage:${this.state.actualPage} response.totalPages:${response.totalPages}`
+        );
+        if (
+          this.state.actualPage === response.totalPages &&
+          response.totalPages > 1
+        )
           Notify.info(`This is the last page`);
       }
     }
@@ -90,6 +95,12 @@ export class App extends Component {
     }
   };
 
+  handleIsBtnLoadMore = () => {
+    this.setState(prevState => {
+      return { actualPage: prevState.actualPage + 1 };
+    });
+  };
+
   render() {
     // destructuring 'state' variables
     const {
@@ -105,20 +116,6 @@ export class App extends Component {
       bigPictureTags,
     } = this.state;
 
-    console.log(
-      'initial "state":',
-      actualPage,
-      pictures,
-      searchQuery,
-      isModal,
-      isLoader,
-      totalHits,
-      totalPages,
-      isBtnLoadMore,
-      bigPictureUrl,
-      bigPictureTags
-    );
-
     return (
       <div className={css.App}>
         <Searchbar onSubmit={this.handleSubmitForm} />
@@ -126,7 +123,12 @@ export class App extends Component {
           <ImageGallery pictures={pictures} onClick={this.handleModalPict} />
         )}
         {isLoader && <Loader />}
-        <ButtonLoadMore />
+        {/* {isBtnLoadMore && actualPage < totalPages && <ButtonLoadMore />} */}
+        {/* {actualPage < totalPages && <ButtonLoadMore />} */}
+        {totalHits > 0 && actualPage < totalPages && (
+          <ButtonLoadMore isBtnLoadMore={this.handleIsBtnLoadMore} />
+        )}
+
         {isModal && (
           <Modal
             onClose={this.toggleModalPict}
