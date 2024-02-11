@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './ButtonLoadMore.module.css';
 
-export const ButtonLoadMore = ({ isBtnLoadMore }) => {
+export const ButtonLoadMore = ({ btnLoadMore }) => {
   return (
-    <button className={css.btn} type="button" onClick={isBtnLoadMore}>
+    <button className={css.btn} type="button" onClick={btnLoadMore}>
       Load more
     </button>
   );
 };
 
 ButtonLoadMore.propTypes = {
-  isBtnLoadMore: PropTypes.func,
+  btnLoadMore: PropTypes.func,
 };

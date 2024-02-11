@@ -14,16 +14,14 @@ Notify.init({
 });
 
 export class App extends Component {
-  // 'state' declaration
   state = {
     actualPage: 1,
     pictures: [],
-    searchQuery: '',
     isModal: false,
     isLoader: false,
+    searchQuery: '',
     totalHits: 0,
     totalPages: 0,
-    isBtnLoadMore: false,
     bigPictureUrl: '',
     bigPictureTags: '',
   };
@@ -38,7 +36,6 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    console.log('prevState:', prevState);
     if (
       prevState.searchQuery !== this.state.searchQuery ||
       prevState.actualPage !== this.state.actualPage
@@ -48,7 +45,6 @@ export class App extends Component {
         this.state.searchQuery,
         this.state.actualPage
       );
-      console.log('in App - "response" is:', response);
       if (response) {
         this.setState(prevState => ({
           pictures: [...prevState.pictures, ...response.pictures],
@@ -65,9 +61,6 @@ export class App extends Component {
               response.totalHits === 500 ? 'or more' : ''
             }`
           );
-        console.log(
-          `Last page? this.state.actualPage:${this.state.actualPage} response.totalPages:${response.totalPages}`
-        );
         if (
           this.state.actualPage === response.totalPages &&
           response.totalPages > 1
@@ -95,23 +88,20 @@ export class App extends Component {
     }
   };
 
-  handleIsBtnLoadMore = () => {
+  handleBtnLoadMore = () => {
     this.setState(prevState => {
       return { actualPage: prevState.actualPage + 1 };
     });
   };
 
   render() {
-    // destructuring 'state' variables
     const {
       actualPage,
       pictures,
-      searchQuery,
       isModal,
       isLoader,
       totalHits,
       totalPages,
-      isBtnLoadMore,
       bigPictureUrl,
       bigPictureTags,
     } = this.state;
@@ -123,10 +113,8 @@ export class App extends Component {
           <ImageGallery pictures={pictures} onClick={this.handleModalPict} />
         )}
         {isLoader && <Loader />}
-        {/* {isBtnLoadMore && actualPage < totalPages && <ButtonLoadMore />} */}
-        {/* {actualPage < totalPages && <ButtonLoadMore />} */}
         {totalHits > 0 && actualPage < totalPages && (
-          <ButtonLoadMore isBtnLoadMore={this.handleIsBtnLoadMore} />
+          <ButtonLoadMore btnLoadMore={this.handleBtnLoadMore} />
         )}
 
         {isModal && (
@@ -135,19 +123,6 @@ export class App extends Component {
             bigPictureUrl={bigPictureUrl}
             bigPictureTags={bigPictureTags}
           />
-        )}
-        {console.log(
-          'return "state":',
-          { actualPage },
-          { pictures },
-          { searchQuery },
-          { isModal },
-          { isLoader },
-          { totalHits },
-          { totalPages },
-          { isBtnLoadMore },
-          { bigPictureUrl },
-          { bigPictureTags }
         )}
       </div>
     );

@@ -10,13 +10,13 @@ export const ImageGalleryItem = ({
   onClick,
 }) => {
   return (
-    <li className={css.galleryItem} key={id} onClick={onClick}>
+    <li className={css.galleryItem} onClick={onClick}>
       <img
         className={css.galleryImg}
         src={webformatURL}
         alt={tags}
         data-modal={largeImageURL}
-        data-tags={tags}
+        // data-tags={tags}
       />
     </li>
   );

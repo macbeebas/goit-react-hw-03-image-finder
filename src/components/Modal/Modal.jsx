@@ -2,23 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
 
-// const modalRoot = document.querySelector('#modal-root');
-
 export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
-    // document.body.style.position = 'fixed';
     document.body.style.overflow = 'hidden';
-    // document.body.style.top = `-${window.scrollY}px`;
   }
 
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
-    // const scrollY = document.body.style.top;
-    // document.body.style.position = '';
     document.body.style.overflow = '';
-    // document.body.style.top = '';
-    // window.scrollTo(0, parseInt(scrollY || '0') * -1);
   }
 
   handleKeyDown = e => {
@@ -42,7 +34,7 @@ export class Modal extends Component {
           <button
             type="button"
             className={css.btnClose}
-            // aria-label="Close button"
+            aria-label="Close button"
             onClick={onClose}
           >
             <span>x</span>
@@ -50,7 +42,6 @@ export class Modal extends Component {
           {/* <div className={css.tagsBox}>{tags}</div> */}
         </div>
       </div>
-      // modalRoot
     );
   }
 }
